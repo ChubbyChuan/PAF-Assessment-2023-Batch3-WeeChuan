@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Brewery Details</title>
+</head>
+
+<body>
+	<div th:if="${brewery.isPresent()}">
+		<p>Description: <span data-th-text="${brewery.get().description}"></span></p>
+		<p>Address: <span data-th-text="${brewery.get().address1}"></span></p>
+		<p>Phone: <span data-th-text="${brewery.get().phone}"></span></p>
+		<p>Website: <span data-th-text="${brewery.get().website}"></span></p>
+	</div>
+	<div th:if="${brewery.isEmpty()}">
+		<p>No brewery found for this id.</p>
+	</div>
+
+
+	<h2>Beer List</h2>
+	<form method="post" action="/brewery/<breweryID>/order"
+		<button type="submit">Place Order</button>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Beer Name</th>
+					<th>Description</th>
+					<th>Quantity</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-th-each="b: ${brewery.beers}" data-th-object="${b}">
+					<td>
+						<span data-th-text="*{beerName}"></span>
+					</td>
+					<td>
+						<span data-th-text="*{beerDescription}"></span>
+					</td>
+					<td>
+						
+						<input type="number" name="qty" value="0">
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</form>
+</body>
+
+</html>
